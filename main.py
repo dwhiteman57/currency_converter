@@ -2,8 +2,8 @@ import requests
 
 
 def get_exchange_rates(target_currency, app_id):
-    url = f"https://openexchangerates.org/api/latest.json?app_id={app_id}"
-    response = requests.get(url, params={'app_id': app_id})
+    url = f"https://openexchangerates.org/api/latest.json?app_id={app_id}&symbols={target_currency}"
+    response = requests.get(url, params={'app_id': app_id, 'target_currency': target_currency})
 
     if response.status_code != 200:
         raise Exception(f"Failed API request: {response.status_code}")
@@ -20,9 +20,9 @@ def convert_currency(amount, target_currency, app_id):
 
 
 def initiate_conversion():
-    app_id = '<insert_api_key>'
-    amount = float(input("Enter the amount you want to exchange: "))
-    target_currency = input("Enter the target currency: ").upper()
+    app_id = '<your_api_key>'
+    amount = float(input("Enter the amount you want to exchange: \n"))
+    target_currency = input("Enter the target currency: \n").upper()
 
     try:
         converted_amount = convert_currency(amount, target_currency, app_id)
